@@ -19,7 +19,7 @@ published automatically**:
    repository** for one-click loading.
 
 **Published manifest:**
-`https://aleph-void.github.io/Korg-SQ-64-Custom-Firmware-Repo/index.json`
+`https://sq64-custom-firmware.alephvoid.com/index.json`
 
 > **Hardware warning.** Passing these checks means the image builds, has a
 > well-formed package, and runs in the emulator without tripping hazard
