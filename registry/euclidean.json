@@ -1,7 +1,7 @@
 {
   "name": "Euclidean",
   "repo": "https://github.com/aleph-void/Korg-SQ-64-Euclidean-Firmware",
-  "ref": "23081a2efb7db17b27e9d99db2b839a7c05ba4cd",
+  "ref": "1fc65790f0f528de355c3a2a8ca3141fda49aaea",
   "artifact": "build/euclidean.vsb",
   "description": "From-scratch four-track Euclidean rhythm sequencer: polymetric E(pulses, length) patterns with rotation, gate/CV and MIDI output, tap tempo, swing, SPI-flash settings persistence and a complete self-updater.",
   "order": 0
