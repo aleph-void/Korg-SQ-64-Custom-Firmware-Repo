@@ -1,0 +1,72 @@
+name: Build and validate firmware registry
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  SPEC_REPO: https://github.com/aleph-void/Korg-SQ-64-Custom-Firmware-Spec
+  SPEC_REF: 45a6844c8d0f5eddc026cb0d0a609ca828adde85
+  EMULATOR_REPO: https://github.com/aleph-void/Korg-SQ-64-Emulator
+  EMULATOR_REF: dbfd9c3aecb845cf6b5ebe5393b388b7d974fc95
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    # Submitted repositories run arbitrary build code (make). Keep this job
+    # free of secrets and write permissions; deployment happens in a separate
+    # job that runs none of the submitted code.
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install the GNU Arm toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends gcc-arm-none-eabi libnewlib-arm-none-eabi
+      - name: Fetch the pinned spec and emulator projects
+        run: |
+          for pair in "spec $SPEC_REPO $SPEC_REF" "emulator $EMULATOR_REPO $EMULATOR_REF"; do
+            set -- $pair
+            git init --quiet "$HOME/$1"
+            git -C "$HOME/$1" remote add origin "$2"
+            git -C "$HOME/$1" fetch --quiet --depth 1 origin "$3"
+            git -C "$HOME/$1" checkout --quiet FETCH_HEAD
+          done
+      - name: Install the spec and emulator Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install "$HOME/spec" "$HOME/emulator"
+      - name: Build, validate and assemble the registry
+        run: |
+          python tools/build_registry.py --out site \
+            --spec "$HOME/spec" --emulator "$HOME/emulator"
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
