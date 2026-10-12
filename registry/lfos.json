@@ -1,7 +1,7 @@
 {
   "name": "LFOs",
   "repo": "https://github.com/aleph-void/Korg-SQ-64-Custom-Firmware-LFOs",
-  "ref": "08671a67d1a1a7ecb2d3ba65c9a6d517f3bd10e8",
+  "ref": "4bed297f6146193ffb6f29f133cc4dc05f8753e3",
   "artifact": "build/lfos.vsb",
   "description": "From-scratch four-channel bank of tempo-synced LFOs phase-locked to a shared 24 PPQN transport: six waveforms, sixteen synced rate divisions, per-LFO depth/phase/CC with CV, gate, trigger and MIDI CC output, MIDI clock sync in/out, pad-LED level meters, SPI-flash settings persistence and the complete VUP self-updater.",
   "order": 10
