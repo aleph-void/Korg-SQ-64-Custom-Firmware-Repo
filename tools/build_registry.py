@@ -227,6 +227,9 @@ def main():
                         help='Python interpreter with the sq64_emulator package installed')
     parser.add_argument('--entries', nargs='*', help='Only process these entry ids (default: all)')
     args = parser.parse_args()
+    # Subprocesses run from other working directories; keep every path absolute.
+    args.registry, args.out = args.registry.resolve(), args.out.resolve()
+    args.spec, args.emulator = args.spec.resolve(), args.emulator.resolve()
     # The validator imports the emulator's own script validation module so the
     # registry accepts exactly what the emulator accepts.
     args.script_validator = Path(__file__).resolve().parent / 'validate_ui_script.mjs'
