@@ -1,5 +1,5 @@
 {
-  "name": "AV aggregate",
+  "name": "Aleph Void Custom FW",
   "repo": "https://github.com/aleph-void/Korg-SQ-64-Custom-Firmware-Aleph-Void-Official",
   "ref": "478954fcdfe9c5939c28c8875957f672c2b0a007",
   "artifact": "build/av-aggregate.vsb",
