@@ -1,0 +1,8 @@
+{
+  "name": "AV aggregate",
+  "repo": "https://github.com/aleph-void/Korg-SQ-64-Custom-Firmware-Aleph-Void-Official",
+  "ref": "478954fcdfe9c5939c28c8875957f672c2b0a007",
+  "artifact": "build/av-aggregate.vsb",
+  "description": "From-scratch aggregate of both Aleph Void feature sets: each of the four tracks runs either a Euclidean rhythm sequencer lane or a tempo-synced LFO, toggled per track with SHIFT+track and locked to one shared 24 PPQN transport with MIDI clock sync in/out, full project management over the 64 saved-project slots, SPI-flash settings persistence and the complete VUP self-updater.",
+  "order": 20
+}
